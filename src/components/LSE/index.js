@@ -1,5 +1,5 @@
-import LSECompanyChart from "./LSECompanyChart";
+import LSEExchangeChart from "./LSEExchangeChart";
 import LSECompanyIndex from "./LSECompanyIndex";
 import LSECompanyShow from "./LSECompanyShow";
 
-export { LSECompanyChart, LSECompanyIndex, LSECompanyShow };
+export { LSEExchangeChart, LSECompanyIndex, LSECompanyShow };
