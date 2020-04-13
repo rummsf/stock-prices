@@ -15,7 +15,7 @@ const ExchangeChart = props => {
   companiesKeyValueArray.map(([key, value]) => {
     if (
       value.quarterly_percentage_change !== 0 &&
-      value.quarterly_percentage_change <= 1000
+      value.quarterly_percentage_change <= 250
       // ? value.quarterly_percentage_change
       // : 1000
     ) {
@@ -31,7 +31,7 @@ const ExchangeChart = props => {
   return (
     <ScatterChart
       width={1400}
-      height={1000}
+      height={750}
       margin={{
         top: 20,
         right: 20,
