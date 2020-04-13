@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 
+import lseCompanies from "../lse_prices_df_csv_to_json.json";
 import "../App.css";
 import history from "../history";
 import Homepage from "./Homepage";
@@ -13,15 +14,13 @@ class App extends Component {
     super(props);
     this.state = {
       aimCompanies: [],
-      lseCompanies: [],
+      lseCompanies: {},
       searchQuery: ""
     };
   }
 
   componentDidMount = () => {
-    fetch("../lse_exchange_prices.json").then(lseCompanies =>
-      this.setState({ lseCompanies })
-    );
+    this.setState({ lseCompanies });
   };
 
   changeSearchQuery = searchQuery => {
