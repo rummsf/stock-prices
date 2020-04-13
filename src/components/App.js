@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
 
 import "../App.css";
 import history from "../history";
@@ -18,6 +17,18 @@ class App extends Component {
       searchQuery: ""
     };
   }
+
+  componentDidMount = () => {
+    fetch("../lse_exchange_prices.json").then(lseCompanies =>
+      this.setState({ lseCompanies })
+    );
+  };
+
+  changeSearchQuery = searchQuery => {
+    this.setState({
+      searchQuery
+    });
+  };
 
   render() {
     return (
@@ -69,7 +80,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path="lse/companies/show/chart/:company"
+                path="/lse"
                 render={props => (
                   <LSEExchangeChart
                     {...props}
