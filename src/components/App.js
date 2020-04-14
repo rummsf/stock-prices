@@ -35,7 +35,6 @@ class App extends Component {
       <div className="App">
         <Router history={history}>
           <Header />
-          <Homepage />
           <div>
             <Switch>
               <Route
@@ -79,6 +78,8 @@ class App extends Component {
                   />
                 )}
               />
+              <Route exact path="/home" component={Homepage} />
+
               <Route
                 exact
                 path="/lse"
