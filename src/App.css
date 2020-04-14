@@ -30,5 +30,28 @@
   text-align: left;
   color: white;
   font-weight: bold;
-  font-size: 46px;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+.h2 {
+  color: grey;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 20px;
+}
+
+.p {
+  font-size: 22px;
+  padding: 150px;
+}
+
+.img {
+  padding: 50px;
+  margin-bottom: 20px;
+  vertical-align: center;
+}
+
+.a:visited {
+  color: gray;
 }

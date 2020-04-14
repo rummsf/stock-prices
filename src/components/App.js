@@ -4,6 +4,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import lseCompanies from "../lse_prices_df_csv_to_json.json";
 import "../App.css";
 import history from "../history";
+import Header from "./Header";
 import Homepage from "./Homepage";
 import { AIMExchangeChart, AIMCompanyIndex, AIMCompanyShow } from "./AIM";
 import { LSEExchangeChart, LSECompanyIndex, LSECompanyShow } from "./LSE";
@@ -33,6 +34,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router history={history}>
+          <Header />
           <Homepage />
           <div>
             <Switch>
