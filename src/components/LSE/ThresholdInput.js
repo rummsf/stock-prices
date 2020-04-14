@@ -1,17 +1,32 @@
 import React from "react";
 
 class ThresholdInput extends React.Component {
-  state = { threshold: "" };
+  onFormSubmit = event => {
+    event.preventDefault();
+    this.props.onThresholdSubmit(
+      this.props.thresholdUpper,
+      this.props.thresholdLower
+    );
+  };
+
   render() {
     return (
       <div className="ui segment">
-        <form className="ui form">
+        <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
-            <label>Enter threshold</label>
+            <label>Enter upper threshold</label>
             <input
-              type="text"
-              value={this.state.threshold}
-              onChange={e => this.setState({ threshold: e.target.value })}
+              type="number"
+              value={this.props.thresholdUpper}
+              onChange={event => this.props.onChangeUpper(event)}
+            />
+          </div>
+          <div className="field">
+            <label>Enter lower threshold</label>
+            <input
+              type="number"
+              value={this.props.thresholdLower}
+              onChange={event => this.props.onChangeLower(event)}
             />
           </div>
         </form>

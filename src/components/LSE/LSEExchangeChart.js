@@ -8,66 +8,105 @@ import {
   Tooltip
 } from "recharts";
 
-const ExchangeChart = props => {
-  const companiesKeyValueArray = Object.entries(props.lseCompanies);
-  const realDataObjects = [];
+import ThresholdInput from "./ThresholdInput";
 
-  companiesKeyValueArray.map(([key, value]) => {
-    if (
-      value.quarterly_percentage_change !== 0 &&
-      value.quarterly_percentage_change <= 250
-      // ? value.quarterly_percentage_change
-      // : 1000
-    ) {
-      let dataObject = {
-        x: value.name,
-        y: value.quarterly_percentage_change
-        // y: Number.parseFloat(value.quarterly_percentage_change).toFixed(3)
-      };
-      realDataObjects.push(dataObject);
-    }
-  });
+class ExchangeChart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      chartData: [],
+      thresholdUpper: 250,
+      thresholdLower: -250
+    };
+  }
 
-  return (
-    <ScatterChart
-      width={1400}
-      height={750}
-      margin={{
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20
-      }}
-    >
-      <CartesianGrid />
-      <XAxis dataKey="x" name="Company Name" />
-      <YAxis type="number" dataKey="y" name="Quarterly Price Change" unit="%" />
-      <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-      <Scatter
-        name="LSE Exchange"
-        data={realDataObjects}
-        strokeWidth={0.1}
-        fill="#8884d8"
-      />
-    </ScatterChart>
-  );
-};
+  createChartData = props => {
+    const companiesKeyValueArray = Object.entries(this.props.lseCompanies);
+    let realDataObjects = [];
+    companiesKeyValueArray.map(([key, value]) => {
+      if (
+        value.quarterly_percentage_change !== 0 &&
+        value.quarterly_percentage_change <= this.state.thresholdUpper &&
+        value.quarterly_percentage_change > this.state.thresholdLower
+      ) {
+        let dataObject = {
+          x: value.name,
+          y: value.quarterly_percentage_change
+          // y: Number.parseFloat(value.quarterly_percentage_change).toFixed(3)
+        };
+        realDataObjects.push(dataObject);
+      }
+    });
+    return realDataObjects;
+  };
+
+  setChartData = props => {
+    const createdChartData = this.createChartData();
+    this.setState({ chartData: createdChartData() });
+  };
+
+  onThresholdSubmit = (thresholdLower, thresholdUpper) => {
+    this.setState({
+      thresholdUpper: thresholdUpper,
+      thresholdLower: thresholdLower
+    });
+    console.log(this.state.thresholdLower);
+  };
+
+  onChangeUpper = event => {
+    this.setState({ thresholdUpper: event.target.value });
+  };
+
+  onChangeLower = event => {
+    this.setState({ thresholdLower: event.target.value });
+  };
+
+  render() {
+    const data = this.createChartData();
+    return (
+      <div>
+        <div>
+          <ScatterChart
+            width={1400}
+            height={750}
+            margin={{
+              top: 20,
+              right: 20,
+              bottom: 20,
+              left: 20
+            }}
+          >
+            <CartesianGrid />
+            <XAxis dataKey="x" name="Company Name" />
+            <YAxis
+              type="number"
+              dataKey="y"
+              name="Quarterly Price Change"
+              unit="%"
+            />
+            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+            <Scatter
+              name="LSE Exchange"
+              data={data}
+              strokeWidth={0.1}
+              fill="#8884d8"
+            />
+          </ScatterChart>
+        </div>
+        <ThresholdInput
+          onThresholdSubmit={this.onThresholdSubmit}
+          thresholdUpper={this.state.thresholdUpper}
+          thresholdLower={this.state.thresholdLower}
+          onChangeLower={this.onChangeLower}
+          onChangeUpper={this.onChangeUpper}
+        />
+      </div>
+    );
+  }
+}
 
 // const chosenCountryCities = props.lseCompanies.filter(
 //   city => city.country === props.match.params.country
-// );
-
-// let chartData = {
-//   labels: ["Scatter"],
-// Object.entries(companies).map(([key, value]) => value.name),
-//
-// };
-
-// return (
-//   <div className="chart">
-//     LSE Percentage Change
-//     {/* <Scatter data={chartData} options={{}} /> */}
-//   </div>
 // );
 
 export default ExchangeChart;
