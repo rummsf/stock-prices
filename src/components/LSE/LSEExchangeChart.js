@@ -68,7 +68,7 @@ class ExchangeChart extends React.Component {
         <div>
           <ScatterChart
             width={1400}
-            height={600}
+            height={570}
             margin={{
               top: 20,
               right: 20,
