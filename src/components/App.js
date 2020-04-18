@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+// import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 
-import lseCompanies from "../lse_prices_df_csv_to_json.json";
 import "../App.css";
 import history from "../history";
 import Header from "./Header";
 import Homepage from "./Homepage";
-import { AIMExchangeChart, AIMCompanyIndex, AIMCompanyShow } from "./AIM";
 import { LSEExchangeChart, LSECompanyIndex, LSECompanyShow } from "./LSE";
+import lseCompanies from "../lse_prices_df_csv_to_json.json";
+// import { AIMExchangeChart, AIMCompanyIndex, AIMCompanyShow } from "./AIM";
 // import CompaniesRouter from "./Router";
 
 class App extends Component {
@@ -37,37 +38,6 @@ class App extends Component {
           <Header />
           <div>
             <Switch>
-              <Route
-                exact
-                path="/aim/show/:company"
-                render={props => (
-                  <AIMCompanyShow
-                    {...props}
-                    aimCompanies={this.state.aimCompanies}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="aim/companies/show/chart/:company"
-                render={props => (
-                  <AIMExchangeChart
-                    {...props}
-                    aimCompanies={this.state.aimCompanies}
-                  />
-                )}
-              />
-              <Route
-                path="aim/companies/:sort"
-                render={props => (
-                  <AIMCompanyIndex
-                    {...props}
-                    aimCompanies={this.state.aimCompanies}
-                    searchQuery={this.state.searchQuery}
-                    changeSearchQuery={this.changeSearchQuery}
-                  />
-                )}
-              />
               <Route
                 exact
                 path="/lse/show/:company"
@@ -106,6 +76,38 @@ class App extends Component {
       </div>
     );
   }
+
+  //   <Route
+  //   exact
+  //   path="/aim/show/:company"
+  //   render={props => (
+  //     <AIMCompanyShow
+  //       {...props}
+  //       aimCompanies={this.state.aimCompanies}
+  //     />
+  //   )}
+  // />
+  // <Route
+  //   exact
+  //   path="aim/companies/show/chart/:company"
+  //   render={props => (
+  //     <AIMExchangeChart
+  //       {...props}
+  //       aimCompanies={this.state.aimCompanies}
+  //     />
+  //   )}
+  // />
+  // <Route
+  //   path="aim/companies/:sort"
+  //   render={props => (
+  //     <AIMCompanyIndex
+  //       {...props}
+  //       aimCompanies={this.state.aimCompanies}
+  //       searchQuery={this.state.searchQuery}
+  //       changeSearchQuery={this.changeSearchQuery}
+  //     />
+  //   )}
+  // />
 
   // refactor
   // render() {

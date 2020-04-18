@@ -2,34 +2,63 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 class LSECompanyIndex extends React.Component {
+  suppressionKeyWords = [
+    "trust",
+    "investment",
+    "investments",
+    "fund",
+    "shares"
+  ];
+
+  createIndexData = props => {
+    const companiesKeyValueArray = Object.entries(this.props.lseCompanies);
+    let realCompanyObjects = [];
+    companiesKeyValueArray.map(([key, value]) => {
+      for (const keyWord in this.suppressionKeyWords) {
+        if (!value.name.includes(keyWord)) {
+          let dataObject = {
+            name: value.name,
+            quarterly_percentage_change:
+              Math.round(value.quarterly_percentage_change * 100) / 100
+          };
+          realCompanyObjects.push(dataObject);
+        }
+      }
+    });
+    return realCompanyObjects;
+  };
+
+  getCompanyObjects = props => {
+    this.createIndexData(props);
+  };
+
   sortCompanies = () => {
     let sortedCompanies = [
-      ...this.props.companies.filter(
-        company =>
-          company.company.toLowerCase().includes(this.props.searchQuery) ||
-          company.country.toLowerCase().includes(this.props.searchQuery)
+      this.getCompanyObjects(this.props).filter(
+        company => company.name.toLowerCase().includes(this.props.searchQuery)
+        //   || company.sector.toLowerCase()
+        //   .includes(this.props.searchQuery)
       )
     ];
 
     switch (this.props.match.params.sort) {
       case "companies":
         return sortedCompanies;
-      case "company":
+      case "name":
         sortedCompanies = sortedCompanies.sort((a, b) => {
-          return a.company.localeCompare(b.company);
+          return a.name.localeCompare(b.name);
         });
         break;
-      case "country":
+      case "sector":
         sortedCompanies = sortedCompanies.sort((a, b) => {
-          return a.country.localeCompare(b.country);
+          return a.sector.localeCompare(b.sector);
         });
         break;
-      case "id":
+      case "quarterly_percentage_change":
         sortedCompanies = sortedCompanies.sort((a, b) => {
-          return a.client_company_id - b.client_company_id;
+          return a.quarterly_percentage_change - b.quarterly_percentage_change;
         });
         break;
-
       default:
         return sortedCompanies;
     }
@@ -40,6 +69,7 @@ class LSECompanyIndex extends React.Component {
     const sortedCompanies = this.sortedCompanies();
     return (
       <div>
+        <h1>test</h1>
         <div>
           <div class="ui search">
             <div class="ui large icon input">
@@ -61,23 +91,18 @@ class LSECompanyIndex extends React.Component {
             <thead>
               <tr>
                 <th>
-                  <Link to={`/companies/id`}>ID </Link>
+                  <Link to={`/companies/cid`}>ID </Link>
                 </th>
               </tr>
             </thead>
             <tbody>
               {sortedCompanies.map(company => {
                 return (
-                  <tr key={company.company}>
-                    <td>{company.client_company_id} </td>
+                  <tr key={company.name}>
+                    <td>{company.cid} </td>
                     <td>
-                      <Link to={`/companies/show/${company.company}`}>
-                        {company.company}
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to={`/companies/show/chart/${company.country}`}>
-                        {company.country}
+                      <Link to={`/companies/show/${company.name}`}>
+                        {company.name}
                       </Link>
                     </td>
                   </tr>

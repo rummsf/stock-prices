@@ -106,8 +106,4 @@ class ExchangeChart extends React.Component {
   }
 }
 
-// const chosenCountryCities = props.lseCompanies.filter(
-//   city => city.country === props.match.params.country
-// );
-
 export default ExchangeChart;
