@@ -9,12 +9,12 @@ const Header = props => {
         opacity: "20%"
       }}
     >
-      <h1 className="h1">
-        <a href="http://localhost:3000/home">
+      <Link to={`/`}>
+        <h1 className="h1">
           LSE Companies' <br />
           Performance
-        </a>
-      </h1>
+        </h1>
+      </Link>
       <Link to={`/lse`}>
         <h2 className="h2">Main Market</h2>
       </Link>

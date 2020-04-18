@@ -16,7 +16,7 @@ class ExchangeChart extends React.Component {
     this.state = {
       chartData: [],
       thresholdUpper: 250,
-      thresholdLower: -250
+      thresholdLower: -100
     };
   }
 
@@ -31,8 +31,7 @@ class ExchangeChart extends React.Component {
       ) {
         let dataObject = {
           x: value.name,
-          y: value.quarterly_percentage_change
-          // y: Number.parseFloat(value.quarterly_percentage_change).toFixed(3)
+          y: Math.round(value.quarterly_percentage_change * 100) / 100
         };
         realDataObjects.push(dataObject);
       }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import lseCompanies from "../lse_prices_df_csv_to_json.json";
 import "../App.css";
@@ -78,7 +78,7 @@ class App extends Component {
                   />
                 )}
               />
-              <Route exact path="/home" component={Homepage} />
+              <Route exact path="/" component={Homepage} />
 
               <Route
                 exact
