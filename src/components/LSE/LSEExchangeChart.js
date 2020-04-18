@@ -92,13 +92,15 @@ class ExchangeChart extends React.Component {
             />
           </ScatterChart>
         </div>
-        <ThresholdInput
-          onThresholdSubmit={this.onThresholdSubmit}
-          thresholdUpper={this.state.thresholdUpper}
-          thresholdLower={this.state.thresholdLower}
-          onChangeLower={this.onChangeLower}
-          onChangeUpper={this.onChangeUpper}
-        />
+        <div>
+          <ThresholdInput
+            onThresholdSubmit={this.onThresholdSubmit}
+            thresholdUpper={this.state.thresholdUpper}
+            thresholdLower={this.state.thresholdLower}
+            onChangeLower={this.onChangeLower}
+            onChangeUpper={this.onChangeUpper}
+          />
+        </div>
       </div>
     );
   }

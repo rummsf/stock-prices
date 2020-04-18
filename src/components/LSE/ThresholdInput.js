@@ -13,17 +13,17 @@ class ThresholdInput extends React.Component {
     return (
       <div className="ui segment">
         <form onSubmit={this.onFormSubmit}>
-          <div class="ui labeled input">
-            <div class="ui label label">Upper threshold</div>
+          <div className="ui labeled input">
+            <div className="ui label label">Upper threshold</div>
             <input
               type="number"
               value={this.props.thresholdUpper}
               onChange={event => this.props.onChangeUpper(event)}
             />
-            <div class="ui basic label label">%</div>
+            <div className="ui basic label label">%</div>
           </div>
-          <div class="ui labeled input">
-            <div class="ui label label">Lower threshold</div>>
+          <div className="ui labeled input">
+            <div className="ui label label">Lower threshold</div>>
             <input
               type="number"
               value={this.props.thresholdLower}
